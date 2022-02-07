@@ -1,0 +1,6 @@
+node_modules
+secrets/*
+!secrets/README.md
+build
+rivalis/*
+!rivalis/README.md

@@ -1,0 +1,25 @@
+{
+  "name": "@mp-frameworks-demo/rivalis",
+  "version": "1.0.0",
+  "private": true,
+  "description": "rivalis cli generated application",
+  "scripts": {
+    "start": "rivalis project start",
+    "build": "rivalis project build"
+  },
+  "dependencies": {
+    "@rivalis/boot": "^1.0.5",
+    "@rivalis/core": "^4.11.16",
+    "@rivalis/registry": "^2.5.28",
+    "@rivalis/transports": "^1.1.7"
+  },
+  "devDependencies": {
+    "@rivalis/cli": "^1.4.48",
+    "@rivalis/console": "^1.3.3",
+    "@babel/core": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
+  }
+}

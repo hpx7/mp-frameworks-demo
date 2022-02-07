@@ -1,0 +1,14 @@
+{
+  "name": "@mp-frameworks-demo/root",
+  "dependencies": {
+    "@rivalis/cli": "^1.4.48",
+    "hathora": "^0.5.6"
+  },
+  "scripts": {
+    "hathora": "cd hathora && npx hathora dev",
+    "rivalis": "npm start -w @mp-frameworks-demo/rivalis"
+  },
+  "workspaces": [
+    "./rivalis"
+  ]
+}
