@@ -4,7 +4,7 @@
   "private": true,
   "description": "rivalis cli generated application",
   "scripts": {
-    "start": "rivalis project start",
+    "start": "NPM_WORSKSPACES=true rivalis project start",
     "build": "rivalis project build"
   },
   "dependencies": {
