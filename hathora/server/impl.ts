@@ -1,13 +1,6 @@
 import { Methods, Context } from "./.hathora/methods";
 import { Response } from "../api/base";
-import {
-  Direction,
-  Point,
-  Player,
-  PlayerState,
-  UserId,
-  ISetDirectionRequest,
-} from "../api/types";
+import { PlayerState, UserId, ISetDirectionRequest } from "../api/types";
 
 type InternalState = {};
 
@@ -20,9 +13,7 @@ export class Impl implements Methods<InternalState> {
   }
   getUserState(state: InternalState, userId: UserId): PlayerState {
     return {
-      playerA: Player.default(),
-      playerB: Player.default(),
-      ball: Point.default(),
+      players: [],
     };
   }
   onTick(state: InternalState, ctx: Context, timeDelta: number): void {}

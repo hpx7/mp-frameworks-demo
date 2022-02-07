@@ -3,16 +3,13 @@ types:
     - NONE
     - UP
     - DOWN
+    - LEFT
+    - RIGHT
   Point:
     x: float
     y: float
-  Player:
-    paddle: float
-    score: int
   PlayerState:
-    playerA: Player
-    playerB: Player
-    ball: Point
+    players: Point[]
 
 methods:
   setDirection:
@@ -24,4 +21,4 @@ auth:
 
 userState: PlayerState
 error: string
-tick: 100
+tick: 50

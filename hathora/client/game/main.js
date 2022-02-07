@@ -1,4 +1,3 @@
-
 import { Game, Scale, WEBGL } from 'phaser'
 import Forest from './scenes/Forest'
 import Loader from './scenes/Loader'
