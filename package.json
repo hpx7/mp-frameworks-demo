@@ -6,7 +6,6 @@
   },
   "scripts": {
     "hathora": "cd hathora && npx hathora dev",
-    "client": "npx vite hathora/client/game",
     "rivalis": "npm start -w @mp-frameworks-demo/rivalis"
   },
   "workspaces": [

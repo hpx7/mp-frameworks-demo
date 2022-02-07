@@ -4,7 +4,8 @@
   "private": true,
   "description": "rivalis cli generated application",
   "scripts": {
-    "start": "NPM_WORSKSPACES=true rivalis project start",
+    "start": "RUN_CLIENT=\"npm run client\" CLI_NPM_WORKSPACES=true rivalis project start",
+    "client": "npx vite ../hathora/client/game",
     "build": "rivalis project build"
   },
   "dependencies": {
