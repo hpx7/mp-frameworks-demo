@@ -58,14 +58,16 @@ class Loader extends Scene {
         this.load.image('tileset/forest_field_8', '/assets/tileset/forest_field_8.png')
         this.load.image('tileset/forest_field_9', '/assets/tileset/forest_field_9.png')
 
-        this.load.image('tileset/ground_field_0', '/assets/tileset/forest_field_0.png')
-        this.load.image('tileset/ground_field_1', '/assets/tileset/forest_field_1.png')
-        this.load.image('tileset/ground_field_2', '/assets/tileset/forest_field_2.png')
-        this.load.image('tileset/ground_field_3', '/assets/tileset/forest_field_3.png')
-        this.load.image('tileset/ground_field_4', '/assets/tileset/forest_field_4.png')
+        this.load.image('tileset/ground_field_0', '/assets/tileset/ground_field_0.png')
+        this.load.image('tileset/ground_field_1', '/assets/tileset/ground_field_1.png')
+        this.load.image('tileset/ground_field_2', '/assets/tileset/ground_field_2.png')
+        this.load.image('tileset/ground_field_3', '/assets/tileset/ground_field_3.png')
+        this.load.image('tileset/ground_field_4', '/assets/tileset/ground_field_4.png')
 
         this.load.image('anims/grandma_side_walk', '/assets/anims/grandma_side_walk.png')
         this.load.image('anims/grandma_up_walk', '/assets/anims/grandma_up_walk.png')
+
+        this.load.json('map/test', '/assets/test_map.json')
 
         this.load.on('complete', () => this.goToLobby())
         this.load.start()

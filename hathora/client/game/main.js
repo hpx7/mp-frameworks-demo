@@ -30,4 +30,4 @@ game.scene.add('loader', new Loader())
 game.scene.add('lobby', new Lobby())
 game.scene.add('forest', new Forest())
 
-game.scene.start('forest')
+game.scene.start('loader')
