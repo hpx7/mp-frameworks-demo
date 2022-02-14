@@ -64,10 +64,10 @@ class Loader extends Scene {
         this.load.image('tileset/ground_field_3', '/assets/tileset/ground_field_3.png')
         this.load.image('tileset/ground_field_4', '/assets/tileset/ground_field_4.png')
 
-        this.load.image('anims/grandma_side_walk', '/assets/anims/grandma_side_walk.png')
-        this.load.image('anims/grandma_up_walk', '/assets/anims/grandma_up_walk.png')
+        this.load.spritesheet('grandma/side_walk', '/assets/anims/grandma_side_walk.png', { frameWidth: 204, frameHeight: 150, endFrame: 8 })
+        this.load.spritesheet('grandma/up_walk', '/assets/anims/grandma_up_walk.png', { frameWidth: 145, frameHeight: 146 })
 
-        this.load.json('map/test', '/assets/test_map.json')
+        this.load.json('config', '/assets/config.json')
 
         this.load.on('complete', () => this.goToLobby())
         this.load.start()

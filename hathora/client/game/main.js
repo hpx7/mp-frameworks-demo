@@ -1,3 +1,4 @@
+
 import { Game, Scale, WEBGL } from 'phaser'
 import Forest from './scenes/Forest'
 import Loader from './scenes/Loader'
@@ -11,7 +12,7 @@ const game = new Game({
         default: 'arcade',
         arcade: {
             debug: false,
-            gravity: { y: 0 }
+            gravity: { y: 10 }
         }
     },
     dom: {

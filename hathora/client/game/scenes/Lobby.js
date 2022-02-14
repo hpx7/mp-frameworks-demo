@@ -1,7 +1,13 @@
 import { Logger } from '@rivalis/utils'
+import { AppClient } from '@rivalis/browser'
 import { GameObjects, Scene } from 'phaser'
 
 class Lobby extends Scene {
+
+    /** @type {AppClient} */
+    app = null
+
+    logger = Logger.getLogger('scene=lobby')
 
     /** @type {GameObjects.Image} */
     bg = null
@@ -10,6 +16,10 @@ class Lobby extends Scene {
     buttonText = null
 
     create() {
+        const { CONSOLE_URL, APP_ID } = this.cache.json.get('config')
+
+        this.app = new AppClient(CONSOLE_URL, APP_ID)
+
         let url = new URL(window.location.href)
         let roomId = url.searchParams.get('roomId') || null
         
@@ -41,12 +51,17 @@ class Lobby extends Scene {
     }
 
     async createRoom() {
-        this.scene.start('forest', {})
+        let access = await this.app.createRoom('my PC', 'forest')
+
+        let url = new URL(window.location.href)
+        url.searchParams.append('roomId', access.roomId)
+        window.history.replaceState({}, null, url.toString())
+        this.scene.start('forest', access)
     }
 
     async joinRoom(roomId) {
-        // let access = await this.app.joinRoom('my PC', roomId)
-        this.scene.start('forest', {})
+        let access = await this.app.joinRoom('my PC', roomId)
+        this.scene.start('forest', access)
     }
 
 
