@@ -1,4 +1,3 @@
-import { WebSocketClient } from '@rivalis/browser'
 import { Scene } from 'phaser'
 import ForestMap from '../objects/ForestMap'
 import Player from '../objects/Player'
@@ -6,8 +5,6 @@ import PlayerInputObserver from '../PlayerInputObserver'
 
 
 class Forest extends Scene {
-
-    ws = new WebSocketClient()
     
     /** @type {Player} */
     mainPlayer = null
@@ -20,23 +17,44 @@ class Forest extends Scene {
     /** @type {ForestMap} */
     map = null
 
-    create({ roomId, endpointUrl, token }) {
+    create({ client, token, roomId }) {
         this.map = new ForestMap(this)
+
+        if (roomId === undefined) {
+            client
+              .connectNew(
+                token,
+                ({ state }) => {
+                  this.drawForest(state.walls, state.width)
+                },
+                console.error
+              )
+              .then((connection) => {
+                let url = new URL(window.location.href);
+                url.searchParams.append("roomId", connection.stateId);
+                window.history.replaceState({}, null, url.toString());
+              });
+        } else {
+            client.connectExisting(
+              token,
+              roomId,
+              ({ state }) => {
+                this.drawForest(state.walls, state.width)
+              },
+              console.error
+            );
+        }
     
-        this.ws.setBaseURL(endpointUrl)
+        /*this.ws.setBaseURL(endpointUrl)
         this.ws.once('socket:connect', this.onConnect, this)
         this.ws.once('socket:disconnect', () => {
             window.location.reload()
         })
-        this.ws.connect(token)
-    }
-
-    update() {
-        this.players.forEach(player => player.update())
+        this.ws.connect(token)*/
     }
 
     onConnect() {
-        this.ws.once('map.sync', (topic, sender, { width, fields }) => this.drawForest(fields, width))
+        /*this.ws.once('map.sync', (topic, sender, { width, fields }) => this.drawForest(fields, width))
         this.ws.on('map.move', this.onMove, this)
         this.ws.on('map.leave', (topic, sender) => {
             let player = this.players.get(sender)
@@ -44,7 +62,7 @@ class Forest extends Scene {
             player.destroy()
             this.players.delete(sender)
         })
-        this.ws.send('map.sync')
+        this.ws.send('map.sync')*/
     }
 
     /**
@@ -53,6 +71,7 @@ class Forest extends Scene {
      * @param {number} width 
      */
     drawForest(fields, width) {
+        console.log('drawForrest', fields, width)
         this.map.draw(fields, width)
         this.add.existing(this.map)
         this.map.setPipeline('Light2D')
@@ -63,7 +82,7 @@ class Forest extends Scene {
         const { width: mapWidth, height: mapHeight } = this.map.getBounds()
         this.cameras.main.setBounds(0, 0, mapWidth, mapHeight)
     }
-
+    /*
     onMove(topic, sender, data) {
         const { x, y, direction: [ up, down, left, right ] } = data
         const player = this.players.get(sender) || null
@@ -92,7 +111,7 @@ class Forest extends Scene {
             })
         }
     }
-
+    */
 }
 
 export default Forest

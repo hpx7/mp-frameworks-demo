@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@rivalis/utils": "^1.8.5",
     "phaser": "^3.55.2"
   }
 }
