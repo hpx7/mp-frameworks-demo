@@ -1,6 +1,7 @@
 import { Methods, Context } from "./.hathora/methods";
 import { Response } from "../api/base";
-import { PlayerState, UserId, ISetDirectionRequest, Point, Direction } from "../api/types";
+import { PlayerState, UserId, ISetDirectionRequest, Direction } from "../api/types";
+import ForestGenerator from "./ForestGenerator";
 
 type Player = {
   id: UserId;
@@ -10,21 +11,32 @@ type Player = {
 };
 type InternalState = {
   players: Player[];
+  walls: boolean[];
+  width: number;
 };
 
+const TILE_WIDTH = 6;
+const TILE_HEIGHT = 5;
+const PIXEL_WIDTH = 150;
+const PIXEL_HEIGHT = 150;
 const SPEED = 200;
+
+const gen = new ForestGenerator();
 
 export class Impl implements Methods<InternalState> {
   initialize(userId: UserId, ctx: Context): InternalState {
+    const { fields, width } = gen.generate(TILE_WIDTH, TILE_HEIGHT);
     return {
       players: [],
+      walls: fields,
+      width,
     };
   }
   setDirection(state: InternalState, userId: UserId, ctx: Context, request: ISetDirectionRequest): Response {
     const player = state.players.find((p) => p.id === userId);
     if (player === undefined) {
-      const x = ctx.chance.natural({ max: 1280 - 1 });
-      const y = ctx.chance.natural({ max: 720 - 1 });
+      const x = ctx.chance.natural({ max: TILE_WIDTH * PIXEL_WIDTH - 1 });
+      const y = ctx.chance.natural({ max: TILE_HEIGHT * PIXEL_HEIGHT - 1 });
       state.players.push({ id: userId, x, y, direction: request.direction });
     } else {
       player.direction = request.direction;
@@ -34,6 +46,8 @@ export class Impl implements Methods<InternalState> {
   getUserState(state: InternalState, userId: UserId): PlayerState {
     return {
       players: state.players.map((player) => ({ x: player.x, y: player.y })),
+      walls: state.walls,
+      width: state.width,
     };
   }
   onTick(state: InternalState, ctx: Context, timeDelta: number): void {
