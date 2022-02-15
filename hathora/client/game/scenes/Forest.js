@@ -26,6 +26,8 @@ class Forest extends Scene {
                 token,
                 ({ state }) => {
                   this.drawForest(state.walls, state.width)
+                  let player = new Player(this)
+                  this.map.add(player)
                 },
                 console.error
               )
@@ -40,6 +42,8 @@ class Forest extends Scene {
               roomId,
               ({ state }) => {
                 this.drawForest(state.walls, state.width)
+                let player = new Player(this)
+                this.map.add(player)
               },
               console.error
             );
