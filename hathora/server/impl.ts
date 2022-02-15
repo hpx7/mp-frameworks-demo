@@ -27,7 +27,7 @@ export class Impl implements Methods<InternalState> {
   initialize(userId: UserId, ctx: Context): InternalState {
     const { fields, width } = gen.generate(TILE_WIDTH, TILE_HEIGHT);
     return {
-      players: [],
+      players: [createPlayer(ctx, userId, Direction.NONE)],
       walls: fields,
       width,
     };
@@ -35,9 +35,7 @@ export class Impl implements Methods<InternalState> {
   setDirection(state: InternalState, userId: UserId, ctx: Context, request: ISetDirectionRequest): Response {
     const player = state.players.find((p) => p.id === userId);
     if (player === undefined) {
-      const x = ctx.chance.natural({ max: TILE_WIDTH * PIXEL_WIDTH - 1 });
-      const y = ctx.chance.natural({ max: TILE_HEIGHT * PIXEL_HEIGHT - 1 });
-      state.players.push({ id: userId, x, y, direction: request.direction });
+      state.players.push(createPlayer(ctx, userId, request.direction));
     } else {
       player.direction = request.direction;
     }
@@ -63,4 +61,10 @@ export class Impl implements Methods<InternalState> {
       }
     });
   }
+}
+
+function createPlayer(ctx: Context, userId: UserId, direction: Direction) {
+  const x = ctx.chance.natural({ max: TILE_WIDTH * PIXEL_WIDTH - 1 });
+  const y = ctx.chance.natural({ max: TILE_HEIGHT * PIXEL_HEIGHT - 1 });
+  return { id: userId, x, y, direction };
 }
